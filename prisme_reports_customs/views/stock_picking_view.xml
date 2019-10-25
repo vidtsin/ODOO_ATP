@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="view_picking_withcarrier_out_form_prisme">
+			<field name="name">view_picking_withcarrier_out_form"</field>
+			<field name="model">stock.picking</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="delivery.view_picking_withcarrier_out_form" />
+			<field name="arch" type="xml">
+			    <field name="shipping_weight" position="after">
+			        <field name="packaging_weight"/>
+			    </field>
+			</field>
+		</record>
+	</data>
+</odoo>

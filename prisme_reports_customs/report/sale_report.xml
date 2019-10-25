@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_saleorder_document_reports_customs" inherit_id="sale.report_saleorder_document" priority="10">
+        <xpath expr="//div[@class='page']/table/thead/tr/th[1]" position="before">
+            <th><strong>Reference</strong></th>
+        </xpath>
+        <xpath expr="//div[@class='page']/table/tbody/t/tr/t/td[1]" position="before">
+            <td>
+                <t t-set="ref_code" t-value="(str(line.name).split(']')[0]).replace('[', '') if ']' in str(line.name) else ''"/>
+                <span t-esc="ref_code"/>
+                <br t-if="ref_code"/>
+            </td>
+        </xpath>
+        <xpath expr="//div[@class='page']/table/tbody/t/tr/t/td[2]/span[@t-field='line.name']" position="replace">
+            <span t-esc="str(line.name).split(']')[1] if ']' in str(line.name) else line.name"/>
+            <br/>
+            <span t-if="line.product_id.hs_code">HS Code:&amp;nbsp;<span t-field="line.product_id.hs_code"/></span>
+            <br/>
+            <span t-if="line.product_id.country_origin">Custom country of origin:&amp;nbsp;<span t-field="line.product_id.country_origin"/></span>
+        </xpath>
+    </template>
+</odoo>

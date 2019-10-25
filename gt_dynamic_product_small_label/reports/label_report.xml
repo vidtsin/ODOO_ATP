@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="small_label_print_format" model="report.paperformat">
+            <field name="name">Small Product Label Print</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_height">100</field>
+            <field name="page_width">100</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+        
+        <report id="gt_print_label_report"
+                model="product.small.label"
+                report_type="qweb-pdf"
+                string="Dynamic Product Label"
+                name="gt_dynamic_product_small_label.label_report_template_main"
+                file="gt_dynamic_product_small_label.label_report_template_main"
+                menu="False"
+                paperformat="small_label_print_format"/>
+        
+        
+        <template id="label_report_template_main">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-foreach="doc.products_list()" t-as="products">
+                        <t t-foreach="products.gt_quantity" t-as="product">
+                            <t t-call="web.basic_layout">
+                                <div class="page" align="center" style="color:black;font-size:12px">
+                                    <div>
+                                        <t t-if="doc.logo_position=='top'">
+                                            <t t-if="doc.logo_label">
+                                                <t t-set="logo_style" t-value="doc.get_logo_style()"/>
+                                                <div>
+                                                    <img t-att-src="image_data_uri(doc.logo_label)" alt="Logo" t-att-style="logo_style"/>
+                                                </div>
+                                            </t>
+                                        </t>
+                                        <div>
+                                            <span t-field="products.name"/>
+                                        </div>
+                                        <div>
+                                            <span t-field="products.default_code"/>
+                                        </div>
+                                        <t t-if="doc.barcode">
+                                            <div>
+                                                <t t-set="barcode_width" t-value="doc.barcode_width"/>
+                                                <t t-set="style" t-value="doc.get_style()"/>
+                                                <t t-set="barcode_height" t-value="doc.barcode_height"/>
+                                                <t t-if="doc.barcode_type=='EAN13'">
+                                                    <img t-if="doc.barcode_field=='barcode'" alt="Barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', products.barcode,int(barcode_width),int(barcode_height))" t-att-style="style"/>
+                                                    <img t-if="doc.barcode_field=='internal'" alt="Barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', products.default_code,int(barcode_width),int(barcode_height))" t-att-style="style"/>
+                                                </t>
+                                                <t t-if="doc.barcode_type=='Code128'">
+                                                    <img t-if="doc.barcode_field=='barcode'" alt="Barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', products.barcode,int(barcode_width),int(barcode_height))" t-att-style="style"/>
+                                                    <img t-if="doc.barcode_field=='internal'" alt="Barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', products.default_code,int(barcode_width),int(barcode_height))" t-att-style="style"/>
+                                                </t>
+                                                <t t-if="doc.barcode_type=='EAN8'">
+                                                    <img t-if="doc.barcode_field=='barcode'" alt="Barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN8', products.barcode,int(barcode_width),int(barcode_height))" t-att-style="style"/>
+                                                    <img t-if="doc.barcode_field=='internal'" alt="Barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN8', products.default_code,int(barcode_width),int(barcode_height))" t-att-style="style"/>
+                                                </t>
+                                            </div>
+                                        </t>
+                                        <t t-if="doc.readable and doc.barcode">
+                                            <div>
+                                                <span t-if="doc.barcode_field=='barcode'" t-field="products.barcode"/>
+                                                <span t-if="doc.barcode_field=='internal'" t-field="products.default_code"/>
+                                            </div>
+                                        </t>
+                                        <div>
+                                            <!--<span t-if="not doc.pricelist_id" t-field="products.lst_price" t-options="{'widget': 'monetary', 'display_currency': products.company_id.currency_id}"/>-->
+                                            <t t-if="doc.currency_position">
+                                                <t t-if="doc.currency_position=='before'">
+                                                    <span t-if="doc.pricelist_id" t-esc="doc.pricelist_id.currency_id.symbol"/> 
+                                                    <span t-if="not doc.pricelist_id" t-esc="doc.company_id.currency_id.symbol"/> 
+                                                </t>
+                                            </t>
+                                            <span t-esc="'%.2f'%(doc._pricelist_amount(products.lst_price))"/>
+                                            <t t-if="doc.currency_position">
+                                                <t t-if="doc.currency_position=='after'">
+                                                    <!--<span t-esc="'%.2f'%(doc._pricelist_amount(products.lst_price))"/>-->
+                                                    <span t-if="not doc.pricelist_id" t-esc="doc.company_id.currency_id.symbol"/> 
+                                                    <span t-if="doc.pricelist_id" t-esc="doc.pricelist_id.currency_id.symbol"/> 
+                                                </t>
+                                                
+                                            </t>
+                                        </div>
+                                        <t t-if="products.attribute_value_ids">
+                                            <div>
+                                                <t t-foreach="products.attribute_value_ids" t-as="attribute">
+                                                    <span t-field="attribute.attribute_id.name"/>:<span t-field="attribute.name"/>;
+                                                </t> 
+                                            </div>
+                                        </t> 
+                                        <t t-if="doc.logo_position=='bottom'">
+                                            <t t-if="doc.logo_label">
+                                                <t t-set="logo_style" t-value="doc.get_logo_style()"/>
+                                                <div style="margin-top:10px">
+                                                    <img t-att-src="image_data_uri(doc.logo_label)" alt="Logo" t-att-style="logo_style"/>
+                                                </div>
+                                            </t>
+                                        </t>
+                                    </div>
+                                </div>
+                            </t>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </template>
+        
+    </data>
+</odoo>

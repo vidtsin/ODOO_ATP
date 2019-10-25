@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_picking_reports_customs" inherit_id="stock.report_picking" priority="10">
+        <xpath expr="//table[@t-if='o.move_line_ids']/thead/tr/th[1]" position="before">
+            <th>Reference</th>
+        </xpath>
+        <xpath expr="//table[@t-if='o.move_line_ids']/tbody/t/t/tr/td[1]" position="before">
+            <td>
+                <t t-set="ref_code" t-value="ml.product_id.default_code or ''"/>
+                <span t-esc="ref_code"/>
+                <br t-if="ref_code"/>        
+            </td>
+        </xpath>
+        <xpath expr="//table[@t-if='o.move_line_ids']/tbody/t/t/tr/td[2]/span[@t-field='ml.product_id.display_name']" position="replace">
+            <span t-esc="str(ml.product_id.display_name).split(']')[1] if ']' in str(ml.product_id.display_name) else ml.product_id.display_name"/>
+        </xpath>
+        <xpath expr="//table[@t-if='o.move_line_ids']/tbody//t/t/tr/td[2]/span[@t-field='ml.product_id.description_picking']" position="after">
+            <br/>
+            <span t-if="ml.product_id.hs_code">HS Code:&amp;nbsp;<span t-field="ml.product_id.hs_code"/></span>
+            <br/>
+            <span t-if="ml.product_id.country_origin">Custom country of origin:&amp;nbsp;<span t-field="ml.product_id.country_origin"/></span>
+        </xpath>
+    </template>
+</odoo>

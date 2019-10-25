@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="gt_product_small_label_wizard" model="ir.ui.view">
+            <field name="name">gt_product_small_label_wizard</field>
+            <field name="model">product.small.label</field>
+            <field name="arch" type="xml">
+                <form>
+                    <label for="template">Template</label>
+                    <group>
+                        <field name="template" required="1" nolabel="1"/>
+                        <button name="save_template" string="Save Design" type="object" default_focus="1" class="oe_highlight"/>
+                    </group>
+                    <group col="4">
+                        <field name="update_template"/>
+                        <field name="design_format" required="1"/>
+                        <field name="pricelist_id"/>
+                        <field name="company_id" invisible="1"/>
+                        <field name="currency_position"/>
+                        <!--<field name="currency_position" attrs="{'invisible':[('pricelist_id','=',False)],'required':[('pricelist_id','!=',False)]}"/>-->
+                    </group>
+<!--                    <group>
+                        <field name="attribute_ids" widget="many2many_tags"/>
+                    </group>-->
+                    <group>
+                        <notebook>
+                            <page string="Products">
+                                <field name="product_ids" widget="many2many" mode="tree">
+                                    <tree editable="bottom">
+                                        <!--<field name="default_code" nolabel="1"/>-->
+                                        <field name="name" string="Product"/>
+                                        <field name="gt_quantity"/>
+                                        <field name="attribute_value_ids" string="Attributes" widget="many2many_tags"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Label">
+                                <group>
+                                    <group>
+                                        <field name="label_width" required="1"/>
+                                        <field name="label_height" required="1"/>
+                                        <field name="dpi"/>
+                                    </group>
+                                    <group>
+                                        <field name="top_margin"/>
+                                        <field name="left_margin"/>
+                                        <field name="bottom_margin"/>
+                                        <field name="right_margin"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="logo_label" widget="image" class="oe_avatar"/>
+                                    </group>
+                                    <group>
+                                        <!--<field name="logo_position" attrs="{'invisible':[('design_format','!=','field_selection')]}"/>-->
+                                        <field name="logo_position" attrs="{'invisible':[('logo_label','=',False)],'required':[('logo_label','!=',False)]}"/>
+                                        <field name="logo_height" attrs="{'invisible':[('logo_label','=',False)]}"/>
+                                        <field name="logo_width" attrs="{'invisible':[('logo_label','=',False)]}"/>
+                                        <!--<field name="logo_height" attrs="{'invisible':[('design_format','!=','field_selection')]}"/>-->
+                                        <!--<field name="logo_width" attrs="{'invisible':[('design_format','!=','field_selection')]}"/>-->
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Barcode">
+                                <group>
+                                    <group>
+                                        <field name="barcode"/>
+                                        <field name="barcode_width"/>
+                                        <field name="barcode_height"/>
+                                        <field name="barcode_type" required="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="readable"/>
+                                        <field name="display_width"/>
+                                        <field name="display_height"/>
+                                        <field name="barcode_field" required="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Fields" attrs="{'invisible':[('design_format','!=','field_selection')]}">
+                                <field name="field_ids">
+                                    <tree editable="bottom">
+                                        <field name="size"/>
+                                        <field name="color"/>
+                                        <field name="width"/>
+                                        <field name="margin"/>
+                                        <field name="currency"/>
+                                        <field name="sequence"/>
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </group>
+                    <footer>
+                        <button name="print_report" string="Print" type="object" default_focus="1" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+       
+        <record id="action_gt_product_small_label" model="ir.actions.act_window">
+            <field name="name">Print Small Product Label</field>
+            <field name="res_model">product.small.label</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+       
+        <menuitem id="menu_small_label_wizard"
+                  name="Product Small Label"
+                  parent="sale.sale_menu_root"
+                  sequence="5"/>
+        
+        <menuitem id="menu_gt_product_small_label_wizard"
+                  name="Print Small Product Label"
+                  action="action_gt_product_small_label"
+                  parent="menu_small_label_wizard"
+                  sequence="1"/>
+    </data>
+</odoo>

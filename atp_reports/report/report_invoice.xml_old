@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document_cre_reports" inherit_id="account.report_invoice_document" priority="15">
+        <xpath expr="//div[hasclass('page')]/div[2]" position="inside">
+            <div t-if="o.incoterm_location" class="col-xs-3">
+                <strong>Incoterm Location:</strong>
+                <p t-field="o.incoterm_location"/>
+            </div>
+            <div t-if="o.expedition_mode" class="col-xs-3">
+                <strong>Expedition Mode:</strong>
+                <p t-field="o.expedition_mode"/>
+            </div>
+        </xpath>
+        <xpath expr="//span[@t-field='o.amount_total']" position="replace">
+             <span t-if="o.is_tax_total" t-field="o.amount_total"
+                  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+             <span t-if="not o.is_tax_total" t-field="o.amount_untaxed"
+                  t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+        </xpath>  
+    </template>
+
+    <template id="report_invoicestock_layouted_cre_reports" inherit_id="sale_stock.report_invoice_document_inherit_sale_stock" priority="17">
+        <xpath expr="//div[@t-if='o.incoterms_id']" position="replace">
+            <div class="col-xs-2" t-if="o.incoterms_id" groups="sale_stock.group_display_incoterm">
+                <strong>Incoterms:</strong>
+                <p><span t-field="o.incoterms_id.code"/> incoterms® 2010</p> 
+            </div>
+        </xpath>
+    </template>
+</odoo>

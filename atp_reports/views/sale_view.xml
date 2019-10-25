@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_form_cre_reports" model="ir.ui.view">
+        <field name="name">sale.order.form.cre_reports</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="priority">12</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                <field name="incoterm_location"/>
+                <field name="expedition_mode"/>
+                <field name="print_weight"/>
+              </xpath>
+        </field>
+    </record>
+</odoo>

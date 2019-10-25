@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_saleorder_document_cre_reports" inherit_id="sale.report_saleorder_document" priority="17">
+        <xpath expr="//p[@t-field='doc.date_order']" position="attributes">
+            <attribute name="t-options">{'widget': 'date'}</attribute>
+        </xpath>
+        <xpath expr="//div[@id='informations']" position="inside">
+            <div t-if="doc.incoterm_location" class="mr16">
+                <strong>Incoterm Location:</strong>
+                <p t-field="doc.incoterm_location"/>
+            </div>
+            <div t-if="doc.expedition_mode">
+                <strong>Expedition Mode:</strong>
+                <p t-field="doc.expedition_mode"/>
+            </div>
+            <div t-if="doc.validity_date and not (env.context.get('proforma', False) or is_pro_forma) and not (doc.state in ['draft', 'sent'])" class="mr16">
+                <strong>Validity Date:</strong>
+                <p t-field="doc.validity_date"/>
+            </div>
+        </xpath>
+		<xpath expr="//span[@t-field='doc.payment_term_id.note']" position="replace">
+        </xpath>
+        
+        <xpath expr="//div[@class='page']/table/thead/tr/th[@class='text-right']" position="after">
+	        <t t-if="doc.print_weight">
+	        	<th><strong>Unit Weight</strong></th>
+	            <th><strong>Weight</strong></th>
+	        </t>
+        </xpath>
+        
+        <xpath expr="//div[@class='page']/table/tbody/t/tr/t/td/span[@t-field='line.price_unit']/.." position="before">
+	        <t t-if="doc.print_weight">
+	            <td class="text-right">
+	            	<!-- product unit weight -->
+					<span t-field="line.product_id.weight"/> <span t-field="line.product_id.weight_uom_name"/>
+	            </td>
+	            <td class="text-right">
+	            	<!-- product line weight -->
+					<span t-esc="round(((line.product_id.weight*100) * (line.product_uom_qty))/100.0, 2)"/> <span t-field="line.product_id.weight_uom_name"/>
+	            </td>
+	        </t>
+        </xpath>
+        
+        <xpath expr="//div[@class='page']/table" position="before">
+			<t t-if="doc.print_weight" t-set="total_weight" t-value="0.0"/>
+        </xpath>
+        
+        <xpath expr="//div[@class='page']/table/tbody/t/t[@t-set='current_subtotal']" position="after">
+			<t t-if="doc.print_weight" t-set="total_weight" t-value="round(total_weight + round(((line.product_id.weight*100) * (line.product_uom_qty))/100.0, 2),2)"/>
+        </xpath>
+        
+        <xpath expr="//p[@t-field='doc.note']" position="before">
+        	<t t-if="doc.print_weight">
+        		<p><strong>Total weight : <span t-esc="total_weight" /> kg</strong></p>
+        	</t>		
+        </xpath>
+
+    </template>
+
+    <template id="report_saleorderstock_document_cre_reports" inherit_id="sale_stock.report_saleorder_document_inherit_sale_stock" priority="17">
+        <xpath expr="//div[@t-if='doc.incoterm']" position="replace">
+            <div class="mr16" t-if="doc.incoterm" groups="sale_stock.group_display_incoterm">
+                <strong>Incoterms:</strong>
+                <p><span t-field="doc.incoterm.code"/> incoterms® 2010</p> 
+            </div>
+        </xpath>
+    </template>
+</odoo>

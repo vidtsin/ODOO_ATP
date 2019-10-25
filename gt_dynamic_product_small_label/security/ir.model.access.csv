@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_label_design,access.label.design,model_label_design,,1,1,1,1
+access_custom_report_fields,custom.report.fields,model_custom_report_fields,,1,1,1,1
+

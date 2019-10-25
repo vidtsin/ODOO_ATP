@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_saleorder_document_cre_reports" inherit_id="sale.report_saleorder_document" priority="17">
+        <xpath expr="//p[@t-field='doc.date_order']" position="attributes">
+            <attribute name="t-field-options">{'widget': 'date'}</attribute>
+        </xpath>
+        <xpath expr="//div[@id='informations']" position="inside">
+            <div t-if="doc.incoterm_location" class="mr16">
+                <strong>Incoterm Location:</strong>
+                <p t-field="doc.incoterm_location"/>
+            </div>
+            <div t-if="doc.expedition_mode">
+                <strong>Expedition Mode:</strong>
+                <p t-field="doc.expedition_mode"/>
+            </div>
+            <div t-if="doc.validity_date and not (env.context.get('proforma', False) or is_pro_forma)" class="mr16">
+                <strong>Validity Date:</strong>
+                <p t-field="doc.validity_date"/>
+            </div>
+        </xpath>
+		<xpath expr="//span[@t-field='doc.payment_term_id.note']" position="replace">
+        </xpath>
+    </template>
+
+    <template id="report_saleorderstock_document_cre_reports" inherit_id="sale_stock.report_saleorder_document_inherit_sale_stock" priority="17">
+        <xpath expr="//div[@t-if='doc.incoterm']" position="replace">
+            <div class="mr16" t-if="doc.incoterm" groups="sale_stock.group_display_incoterm">
+                <strong>Incoterms:</strong>
+                <p><span t-field="doc.incoterm.code"/> incoterms® 2010</p> 
+            </div>
+        </xpath>
+    </template>
+</odoo>

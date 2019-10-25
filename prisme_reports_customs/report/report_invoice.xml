@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_invoice_document_reports_customs" inherit_id="account.report_invoice_document" priority="10">
+        <xpath expr="//table[@name='invoice_line_table']/thead/tr/th[1]" position="before">
+            <th>Reference</th>
+        </xpath>
+        <xpath expr="//tbody[hasclass('invoice_tbody')]/t/tr/t/td[1]" position="before">
+            <td>
+                <t t-set="ref_code" t-value="(str(line.name).split(']')[0]).replace('[', '') if ']' in str(line.name) else ''"/>
+                <span t-esc="ref_code"/>
+                <br t-if="ref_code"/>
+                
+            </td>
+        </xpath>
+        <xpath expr="//tbody[hasclass('invoice_tbody')]/t/tr/t/td[2]/span[@t-field='line.name']" position="replace">
+            <span t-esc="str(line.name).split(']')[1] if ']' in str(line.name) else line.name"/>
+            <br/>
+            <span t-if="line.product_id.hs_code">HS Code:&amp;nbsp;<span t-field="line.product_id.hs_code"/></span>
+            <br/>
+            <span t-if="line.product_id.country_origin">Custom country of origin:&amp;nbsp;<span t-field="line.product_id.country_origin"/></span>
+        </xpath>
+
+		<xpath expr="//p[@t-if='o.reference']" position="replace">
+	
+			<p t-if="o.state != 'paid' and o.reference">
+				Please use the following communication for your payment :
+				<b>
+					<span t-field="o.reference" />
+				</b>
+			</p>
+		</xpath>
+        
+    </template>
+
+    <!--<template id="report_invoice_layouted_reports_customs" inherit_id="sale.report_invoice_layouted" priority="10">
+        xpath expr="//t[@name='lines_layouted']/table/thead/tr/th[1]" position="before">
+            <th>Reference</th>
+        </xpath>
+        <xpath expr="//t[@t-as='l']/tr/td[1]" position="before">
+            <td>
+                <t t-set="ref_code" t-value="(str(l.name).split(']')[0]).replace('[', '') if ']' in str(l.name) else ''"/>
+                <span t-esc="ref_code"/>
+                <br t-if="ref_code"/>                
+            </td>
+        </xpath>
+        <xpath expr="//t[@t-as='l']//span[@t-field='l.name']" position="replace">
+            <span t-esc="str(l.name).split(']')[1] if ']' in str(l.name) else l.name"/>
+            <br/>
+            <span t-if="l.product_id.hs_code">HS Code:&amp;nbsp;<span t-field="l.product_id.hs_code"/></span>
+            <br/>
+            <span t-if="l.product_id.country_origin">Custom country of origin:&amp;nbsp;<span t-field="l.product_id.country_origin"/></span>
+        </xpath>
+    </template>-->
+</odoo>

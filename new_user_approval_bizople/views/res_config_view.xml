@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="view_res_config_settings_new_user_form" model="ir.ui.view">
+            <field name="name">res.config.settings.form</field>
+            <field name="model">res.config.settings</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='website_id']" position="after">
+                    <h2>New User Approval Notification Settings</h2>
+                    <group style="margin-left: 32px;">
+                            <field name="email_notification" string="To whom(at admin side) you want to get notified at new Sign-Up?"/>
+                            <field name="is_email_validation" string="Email Link Varification for New User Sign Up ?"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_delivery_document2_prisme" inherit_id="delivery.report_delivery_document2" priority="10">
+        
+        <xpath expr="//th[@t-if='o.shipping_weight']" position="replace">
+        	<th t-if="o.shipping_weight"><strong>Shipping Weight</strong></th>
+        	<th t-if="o.packaging_weight"><strong>Weight packaging</strong></th>
+        </xpath>
+        
+        <xpath expr="//td[@t-if='o.shipping_weight']" position="replace">
+	            <td t-if="o.shipping_weight">
+	                <span t-esc="o.shipping_weight + o.packaging_weight"/>
+	                <span t-field="o.weight_uom_id"/>
+	            </td>
+                <td t-if="o.packaging_weight">
+                    <span t-field="o.packaging_weight"/>
+                    <span t-field="o.weight_uom_id"/>
+                </td>
+        </xpath>
+
+    </template>
+</odoo>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_WebsiteUserConfirmation_tree" model="ir.ui.view">
+            <field name="name">website.user.confirmation.tree</field>
+            <field name="model">website.user.confirmation</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+            <tree string="Website User Confirmation" create="false" edit="false" editable="bottom">
+                <field name="partner_id" readonly="1"/>
+                <field name="user_id" invisible="1"/>
+                <field name="login" readonly="1"/>
+                <field name="ip_address" readonly="1"/>
+                <field name="city_name" readonly="1"/>
+                <field name="country_name" readonly="1"/>
+                <field name="create_date" invisible="1"/>
+                <field name="confirmation_state" readonly="1"/>
+                <button string="Confirm" attrs="{'invisible': [('confirmation_state','in', ['confirm', 'waiting', 'reject'])]}"  type="object" name="get_confirm_user"/>
+                <button string="Reject" attrs="{'invisible': [('confirmation_state','in', ['confirm', 'waiting', 'reject'])]}"  type="action" name="%(act_open_UserRejectMessageWizard_view)d"/>
+            </tree>
+            </field>
+        </record>
+        
+        <record id="view_WebsiteUserConfirmation_form" model="ir.ui.view">
+            <field name="name">website.user.confirmation.form</field>
+            <field name="model">website.user.confirmation</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+            <form string="Website User Confirmation" create="false" edit="false">
+                <field name="partner_id"/>
+            </form>
+            </field>
+        </record>
+        
+        <record id="view_WebsiteUserConfirmation_search" model="ir.ui.view">
+            <field name="name">website.user.confirmation.search</field>
+            <field name="model">website.user.confirmation</field>
+            <field name="type">search</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+            <search string="Website User Confirmation">
+                <field name="partner_id"/>
+                <field name="country_name"/>
+                <field name="city_name"/>
+            </search>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="act_open_WebsiteUserConfirmation_view">
+            <field name="name">Website User Confirmation</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">website.user.confirmation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_WebsiteUserConfirmation_search"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="act_open_WebsiteUserConfirmation_view_form">
+            <field name="act_window_id" ref="act_open_WebsiteUserConfirmation_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_WebsiteUserConfirmation_form"/>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="act_open_WebsiteUserConfirmation_view_tree">
+            <field name="act_window_id" ref="act_open_WebsiteUserConfirmation_view"/>
+            <field name="sequence" eval="10"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_WebsiteUserConfirmation_tree"/>
+        </record>
+        
+        <menuitem id="menu_WebsiteUserConfirmation"
+            parent="website.menu_website_global_configuration"
+            sequence="11"
+            action="act_open_WebsiteUserConfirmation_view"/>
+    </data>
+</odoo>

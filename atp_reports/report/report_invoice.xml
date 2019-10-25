@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document_cre_reports" inherit_id="account.report_invoice_document" priority="15">
+        <xpath expr="//div[hasclass('page')]/div[2]" position="inside">
+            <t t-if="o.print_weight">
+        		<p><strong>Total weight : <span t-esc="total_weight" /> kg</strong></p>
+        	</t>	
+            <div t-if="o.incoterm_location" class="col-xs-3">
+                <strong>Incoterm Location:</strong>
+                <p t-field="o.incoterm_location"/>
+            </div>
+            <div t-if="o.expedition_mode" class="col-xs-3">
+                <strong>Expedition Mode:</strong>
+                <p t-field="o.expedition_mode"/>
+            </div>
+        </xpath>
+        <xpath expr="//span[@t-field='o.amount_total']" position="replace">
+             <span t-field="o.amount_total" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+        </xpath>
+        
+        <xpath expr="//div[@class='page']/table/thead/tr/th[@class='text-right']" position="after">
+	        <t t-if="o.print_weight">
+	        	<th><strong>Unit Weight</strong></th>
+	            <th><strong>Weight</strong></th>
+	        </t>
+        </xpath>
+        
+       	<xpath expr="//div[@class='page']/table/tbody/t/tr/t/td/span[@t-field='line.price_unit']/.." position="before">
+	        <t t-if="o.print_weight">
+	            <td class="text-right">
+	            	<!-- product unit weight -->
+					<span t-field="line.product_id.weight"/> <span t-field="line.product_id.weight_uom_name"/>
+	            </td>
+	            <td class="text-right">
+	            	<!-- product line weight -->
+					<span t-esc="round(((line.product_id.weight*100) * (line.quantity))/100.0, 2)"/> <span t-field="line.product_id.weight_uom_name"/>
+	            </td>
+	        </t>
+        </xpath>
+        
+        <xpath expr="//div[@class='page']/table" position="before">
+			<t t-if="o.print_weight" t-set="total_weight" t-value="0.0"/>
+        </xpath>
+        
+        <xpath expr="//div[@class='page']/table/tbody/t/t[@t-set='current_subtotal']" position="after">
+			<t t-if="o.print_weight" t-set="total_weight" t-value="round(total_weight + round(((line.product_id.weight*100) * (line.quantity))/100.0, 2),2)"/>
+        </xpath>
+        
+    </template>
+
+    <template id="report_invoicestock_layouted_cre_reports" inherit_id="sale_stock.report_invoice_document_inherit_sale_stock" priority="17">
+        <xpath expr="//div[@t-if='o.incoterms_id']" position="replace">
+            <div class="col-xs-2" t-if="o.incoterms_id" groups="sale_stock.group_display_incoterm">
+                <strong>Incoterms:</strong>
+                <p><span t-field="o.incoterms_id.code"/> incoterms® 2010</p> 
+            </div>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        
+        <record id="view_UserRejectMessageWizard_form" model="ir.ui.view">
+            <field name="name">user.reject.message.wizard.form</field>
+            <field name="model">user.reject.message.wizard</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+            <form string="Reject Message">
+                <separator string="Reason for Rejection" colspan="4"/>
+                <field name="msg" nolabel="1" required="1"/>
+                <field name="website_user_id" invisible="1"/>
+                <field name="partner_id" invisible="1"/>
+                <footer>
+                    <button string="Reject" icon="" states="" type="object" name="get_reject_website_user"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="act_open_UserRejectMessageWizard_view">
+            <field name="name">Reject Message</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">user.reject.message.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+        <record model="ir.actions.act_window.view" id="act_open_UserRejectMessageWizard_view_form">
+            <field name="act_window_id" ref="act_open_UserRejectMessageWizard_view"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_UserRejectMessageWizard_form"/>
+        </record>
+        
+    </data>
+</odoo>

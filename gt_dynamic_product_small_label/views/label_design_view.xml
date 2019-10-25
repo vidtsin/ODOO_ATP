@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--custom.report.fields form view-->
+        <record id="custom_report_fields_form_view" model="ir.ui.view">
+            <field name="name">custom.report.fields.form.view</field>
+            <field name="model">custom.report.fields</field>
+            <field name="arch" type="xml">
+                <form string="Fields">
+                    <group cols="4">
+                        <field name="size"/>
+                        <field name="color"/>
+                        <field name="width"/>
+                        <field name="margin"/>
+                        <field name="currency"/>
+                        <field name="sequence"/>
+                        <field name="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+        <!--custom.report.fields Tree View-->
+        <record id="custom_report_fields_tree_view" model="ir.ui.view">
+            <field name="name">custom.report.fields.tree.view</field>
+            <field name="model">custom.report.fields</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="size"/>
+                    <field name="color"/>
+                    <field name="width"/>
+                    <field name="margin"/>
+                    <field name="currency"/>
+                    <field name="sequence"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="gt_label_design_form_view" model="ir.ui.view">
+            <field name="name">gt.label.design.form.view</field>
+            <field name="model">label.design</field>
+            <field name="arch" type="xml">
+                <form string="Design">
+                    <group col="4">
+                        <field name="name" required="1"/>
+                        <field name="default_design" invisible="1"/>
+                        <field name="template_saved" invisible="1"/>
+                        <field name="pricelist_id" invisible="1"/>
+                        <field name="label_width" invisible="1"/>
+                        <field name="label_height" invisible="1"/>
+                        <field name="top_margin" invisible="1"/>
+                        <field name="left_margin" invisible="1"/>
+                        <field name="bottom_margin" invisible="1"/>
+                        <field name="right_margin" invisible="1"/>
+                        <field name="dpi" invisible="1"/>
+                        <field name="logo_label" invisible="1"/>
+                        <field name="logo_position" invisible="1"/>
+                        <field name="currency_position" invisible="1" />
+                        <field name="logo_height" invisible="1"/>
+                        <field name="logo_width" invisible="1"/>
+                        <field name="barcode_width" invisible="1"/>
+                        <field name="display_width" invisible="1"/>
+                        <field name="barcode_height" invisible="1"/>
+                        <field name="display_height" invisible="1"/>
+                        <field name="barcode_type" invisible="1"/>
+                        <field name="barcode" invisible="1"/>
+                        <field name="readable" invisible="1"/>
+                        <field name="barcode_field" invisible="1"/>
+                        <field name="design_format" invisible="1"/>
+                    </group>
+                    <group>
+                        <field name="field_ids" invisible="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+        <record id="gt_label_design_tree_view" model="ir.ui.view">
+            <field name="name">gt.label.design.tree.view</field>
+            <field name="model">label.design</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_gt_label_design" model="ir.actions.act_window">
+            <field name="name">Product Label Design</field>
+            <field name="res_model">label.design</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <record id="action_gt_field_design" model="ir.actions.act_window">
+            <field name="name">Fields Design</field>
+            <field name="res_model">custom.report.fields</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+       
+       <menuitem id="menu_gt_field_label_wizard"
+                  name="Fields Design"
+                  action="action_gt_field_design"
+                  parent="menu_small_label_wizard"
+                  sequence="3"/>
+       
+        <menuitem id="menu_gt_design_label_wizard"
+                  name="Small Label Design Template"
+                  action="action_gt_label_design"
+                  parent="menu_small_label_wizard"
+                  sequence="2"/>
+    </data>
+</odoo>
+
+

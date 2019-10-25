@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!--Default design data file-->
+        <record id="default_design_id" model="label.design">
+            <field name="name">Default Design</field>
+            <field name="default_design">True</field>
+        </record>
+        
+        <!--Default design data file-->
+        <record id="default_fields_name" model="custom.report.fields">
+            <field name="size">10</field>
+            <field name="width">100</field>
+            <field name="color">Black</field>
+            <field name="margin">0,0,0,0</field>
+            <field name="currency">False</field>
+            <field name="sequence">1</field>
+            <field name="name">name</field>
+        </record>
+        
+        <record id="default_fields_barcode" model="custom.report.fields">
+            <field name="size">10</field>
+            <field name="width">100</field>
+            <field name="color">Black</field>
+            <field name="margin">0,0,0,0</field>
+            <field name="currency">False</field>
+            <field name="sequence">3</field>
+            <field name="name">barcode</field>
+        </record>
+        
+        <record id="default_fields_code" model="custom.report.fields">
+            <field name="size">10</field>
+            <field name="width">100</field>
+            <field name="color">Black</field>
+            <field name="margin">0,0,0,0</field>
+            <field name="currency">False</field>
+            <field name="sequence">2</field>
+            <field name="name">default_code</field>
+        </record>
+        
+        <record id="default_fields_price" model="custom.report.fields">
+            <field name="size">10</field>
+            <field name="width">100</field>
+            <field name="color">Black</field>
+            <field name="margin">0,0,0,0</field>
+            <field name="currency">True</field>
+            <field name="sequence">4</field>
+            <field name="name">lst_price</field>
+        </record>
+    </data>
+    
+    <data>
+        <record id="action_sale_print_small_label" model="ir.actions.act_window">
+            <field name="name">Dynamic Product Label</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.small.label</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="sale.model_sale_order" />
+        </record>
+        
+        <record id="action_purchase_print_small_label" model="ir.actions.act_window">
+            <field name="name">Dynamic Product Label</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.small.label</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="purchase.model_purchase_order" />
+        </record>
+        
+        <record id="action_invoice_print_small_label" model="ir.actions.act_window">
+            <field name="name">Dynamic Product Label</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.small.label</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="account.model_account_invoice" />
+        </record>
+        
+        <record id="action_stock_print_small_label" model="ir.actions.act_window">
+            <field name="name">Dynamic Product Label</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.small.label</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking" />
+        </record>
+        
+        <record id="action_product_print_small_label" model="ir.actions.act_window">
+            <field name="name">Dynamic Product Label</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.small.label</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="product.model_product_product"/>
+        </record>
+        
+        <record id="action_product_template_print_small_label" model="ir.actions.act_window">
+            <field name="name">Dynamic Product Label</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.small.label</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="product.model_product_template"/>
+        </record>
+        
+    </data>
+</odoo>
+
+

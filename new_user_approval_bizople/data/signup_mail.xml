@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="0">
+        <record id="email_template_apply_signup_confirmation_mail" model="mail.template">
+            <field name="name">Apply for Signup Confirmation</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="email_from"></field>
+            <field name="email_to">${(object.email)|safe}</field>
+            <field name="reply_to"></field>
+            <field name="subject">Your registration with ${object.company_id.name} has been received</field>
+            <field name="body_html"><![CDATA[
+<p><span style="font-size: 14px;">Thank You
+</span></p><p><span style="font-size: 14px;">
+</span></p><p><span style="font-size: 14px;">Your registration has been received by our Customer Service Team.
+</span></p><p><span style="font-size: 14px;">
+</span></p><p><span style="font-size: 14px;">We will perform the necessary checks and we are contact you if we require any more information.
+</span></p><p><span style="font-size: 14px;">
+</span></p><p><span style="font-size: 14px;">We will endeavor to open your account as soon as possible.</span></p>
+            ]]></field>
+        </record>
+
+        <record id="email_template_signup_user_confirmation_mail" model="mail.template">
+            <field name="name">Signup User Confirmation</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="email_from"></field>
+            <field name="email_to"></field>
+            <field name="reply_to"></field>
+            <field name="subject">A new customer has registered for an account</field>
+            <field name="body_html"><![CDATA[
+<p>Hello sir,</p>
+<p>A customer has applied for an account, to accept please log in to the odoo dashboard.</p>
+<table class="table table-bordered">
+    <tbody>
+        <tr>
+            <td>User Name</td>
+            <td>${object.name or ''}</td>
+        </tr>
+        <tr>
+            <td>User Email</td>
+            <td>${object.email or ''}</td>
+        </tr>
+        <tr>
+            <td>Company Name</td>
+            <td>${object.company_name or ''}</td>
+        </tr>
+        <tr>
+            <td>Company Address</td>
+            <td>${object.street or ''}</td>
+        </tr>
+        <tr>
+            <td>Telephone Number</td>
+            <td>${object.phone or ''}</td>
+        </tr>
+
+    </tbody>
+</table>
+<p>Thank you!</p>
+            ]]></field>
+        </record>
+
+        <record id="email_template_signup_user_confirmation_done_mail" model="mail.template">
+            <field name="name">Signup User Confirmation Completed</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="email_from"></field>
+            <field name="email_to">${(object.email)|safe}</field>
+            <field name="reply_to"></field>
+            <field name="subject">Congratulations, your Account has been accepted</field>
+            <field name="body_html"></field>
+        </record>
+
+        <record id="email_template_signup_user_reject_mail" model="mail.template">
+            <field name="name">Signup User Rejected</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="email_from"></field>
+            <field name="email_to">${(object.email)|safe}</field>
+            <field name="reply_to"></field>
+            <field name="subject">Your Account has been rejected</field>
+            <field name="body_html"></field>
+        </record>
+    </data>
+</odoo>

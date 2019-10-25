@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="product_price_alert" inherit_id="website_sale.products">
+		<xpath expr="//div[@id='products_grid']" position="before">
+			<div t-if="website.user_id == user_id">
+			<div class="alert alert-danger text-center alert-dismissible"
+				role="alert">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&#215;</span>
+				</button>
+				<a href="/web/login" class="alert-link">
+					<strong>Please Login</strong>
+					to see Product Price
+				</a>
+			</div>
+			</div>
+		</xpath>
+	</template>
+
+	<template id="product_price" inherit_id="website_sale.product_price">
+		<xpath expr="//div[@itemprop='offers']" position="attributes">
+			<attribute name="t-if">
+				uid and uid &gt; 0
+			</attribute>
+		</xpath>
+	</template>
+
+	<template id="products_item" inherit_id="website_sale.products_item">
+		<xpath expr="//div[@itemprop='offers']" position="attributes">
+			<attribute name="t-if">
+				uid and uid &gt; 0
+			</attribute>
+		</xpath>
+	</template>
+
+	<template id="products_item_addtocart" inherit_id="website_sale.product">
+		<xpath expr="//a[@id='add_to_cart']" position="attributes">
+			<attribute name="t-if">
+				uid and uid &gt; 0
+			</attribute>
+		</xpath>
+		<xpath expr="//div[hasclass('js_product')]" position="attributes">
+			<attribute name="t-if">
+				uid and uid &gt; 0
+			</attribute>
+		</xpath>
+		<xpath expr="//div[@id='product_details']/h1" position="after">
+			<div t-if="website.user_id == user_id">
+				<div class="alert alert-danger text-center alert-dismissible"
+					role="alert">
+					<button type="button" class="close" data-dismiss="alert"
+						aria-label="Close">
+						<span aria-hidden="true">&#215;</span>
+					</button>
+					<a href="/web/login" class="alert-link">
+						<strong>Please Login</strong>
+						to see Product Price
+					</a>
+				</div>
+			</div>
+		</xpath>
+	</template>
+
+
+</odoo>

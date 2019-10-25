@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Customer Form -->
+    <record id="invoice_form_cre_reports" model="ir.ui.view">
+        <field name="name">account.invoice.cre_reports</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='cash_rounding_id']" position="after">
+                <field name="incoterm_location"/>
+                <field name="expedition_mode"/>
+                <field name="print_weight"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Supplier form -->
+    <record id="supplier_invoice_form_cre_reports" model="ir.ui.view">
+        <field name="name">account.invoice.cre_reports</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_supplier_form"/>
+        <field name="priority">5</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='reference']" position="after">
+                <field name="incoterm_location"/>
+                <field name="expedition_mode"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

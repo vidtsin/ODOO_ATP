@@ -1,0 +1,35 @@
+#. module: atp_reports
+#: model_terms:ir.ui.view,arch_db:atp_reports.report_saleorder_document_cre_reports
+#: model_terms:ir.ui.view,arch_db:atp_reports.report_invoice_document_cre_reports
+msgid "Total weight :"
+msgstr "Peso total"
+
+#. module: atp_reports
+#: model_terms:ir.ui.view,arch_db:atp_reports.report_purchaseorder_document_cre_reports
+#: model_terms:ir.ui.view,arch_db:atp_reports.report_purchasequotation_document_cre_reports
+msgid "<strong>Reference</strong>"
+msgstr "<strong>Referencia</strong>"
+
+#. module: atp_reports
+#: model_terms:ir.ui.view,arch_db:atp_reports.report_invoice_document_cre_reports
+#: model_terms:ir.ui.view,arch_db:atp_reports.report_saleorder_document_cre_reports
+msgid "<strong>Unit Weight</strong>"
+msgstr "<strong>Peso unitario</strong>"
+
+#. module: atp_reports
+#: model_terms:ir.ui.view,arch_db:atp_reports.report_invoice_document_cre_reports
+#: model_terms:ir.ui.view,arch_db:atp_reports.report_saleorder_document_cre_reports
+msgid "<strong>Weight</strong>"
+msgstr "<strong>Peso</strong>"
+
+#. module: atp_reports
+#: model_terms:ir.ui.view,arch_db:atp_reports.report_invoice_document_cre_reports
+#: model_terms:ir.ui.view,arch_db:atp_reports.report_saleorder_document_cre_reports
+msgid "<strong>Incoterm Location:</strong>"
+msgstr "<strong>lugar de Incoterm:</strong>"
+
+#. module: atp_reports
+#: model_terms:ir.ui.view,arch_db:atp_reports.report_invoice_document_cre_reports
+#: model_terms:ir.ui.view,arch_db:atp_reports.report_saleorder_document_cre_reports
+msgid "<strong>Expedition Mode:</strong>"
+msgstr "<strong>Método de envío:</strong>"
